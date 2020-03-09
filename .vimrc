@@ -31,7 +31,7 @@ set hlsearch
 set incsearch
 set encoding=UTF-8
 set mouse=a
-colorscheme nord
+colorscheme molokai
 
 if has('gui_running')
   set guifont=Hack\ 9
