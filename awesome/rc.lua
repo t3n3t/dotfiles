@@ -172,7 +172,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "###", "msg", "www", "flz", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "term", "msg", "www", "flz", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -199,7 +199,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "bottom", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -329,7 +329,13 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+
+    awful.key({ modkey }, "d", function() awful.spawn.with_shell('rofi -show drun -show-icons -font "hack 9"') end,
+              {description = "show rofi drun", group = "launcher"}),
+
+    awful.key({ modkey }, "Tab", function() awful.spawn.with_shell('rofi -show window -show-icons -font "hack 9"') end,
+              {description = "show rofi window", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -341,9 +347,9 @@ clientkeys = gears.table.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ modkey, "Shift" }, "f",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+    awful.key({ modkey, "Shift" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
@@ -575,3 +581,4 @@ awful.spawn.with_shell("picom")
 awful.spawn.with_shell("numlockx")
 awful.spawn.with_shell("volumeicon")
 awful.spawn.with_shell("nm-applet")
+awful.spawn.with_shell('setxkbmap -model pc105 -layout us,ru -variant qwerty -option "grp:caps_toggle, grp_led:scroll, compose:ralt"')
