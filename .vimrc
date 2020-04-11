@@ -61,6 +61,8 @@ imap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
 nmap <F8> <Plug>(ale_fix)
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+
 
 " highlight Normal ctermbg=none
 " highlight NonText ctermbg=none
@@ -92,4 +94,3 @@ set statusline+=%m
 set statusline+=\ %f
 set statusline+=%=
 set statusline+=\ %{LinterStatus()}
-
