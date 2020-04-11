@@ -46,10 +46,10 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.init("/home/t3n3t/.config/awesome/custom/theme.lua")
+beautiful.init("/home/t3n3t/.config/awesome/themes/gtk/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "alacritty"
+terminal = "xfce4-terminal"
 browser = "firefox"
 editor = os.getenv("EDITOR") or vim or "nano"
 editor_cmd = terminal .. " -e " .. editor
@@ -462,7 +462,8 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+									   size_hints_honor = false
      }
     },
 
