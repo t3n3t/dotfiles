@@ -42,3 +42,5 @@ fo() (
 stty -ixon
 
 export SAL_USE_VCLPLUGIN=kf5
+
+export RUBYOPT='-W:no-deprecated'
