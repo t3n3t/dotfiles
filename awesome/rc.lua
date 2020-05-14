@@ -45,13 +45,11 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
--- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.init("/home/t3n3t/.config/awesome/themes/gtk/theme.lua")
+beautiful.init(gears.filesystem.get_themes_dir() .. "gtk/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xfce4-terminal"
-browser = "firefox"
-editor = os.getenv("EDITOR") or vim or "nano"
+terminal = "alacritty"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -63,14 +61,14 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
+    awful.layout.suit.floating,
     -- awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
@@ -105,8 +103,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout({ forced_width = 100 })
-
+mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -172,7 +169,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "term", "msg", "www", "flz", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -194,7 +191,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
+        filter  = awful.widget.tasklist.filter.focused,
         buttons = tasklist_buttons
     }
 
@@ -301,7 +298,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
 
-    awful.key({ modkey, "Control" }, "n",
+    awful.key({ modkey, "Shift" }, "n",
               function ()
                   local c = awful.client.restore()
                   -- Focus restored client
@@ -313,9 +310,9 @@ globalkeys = gears.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-    -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
+    -- -- Prompt
+    -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+    --           {description = "run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -330,12 +327,15 @@ globalkeys = gears.table.join(
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
+		-- Custom shortcuts
+    awful.key({ modkey }, "a", function() awful.util.spawn("rofi -show window -show-icons") end,
+              {description = "rofi windows list", group = "launcher"}),
 
-    awful.key({ modkey }, "d", function() awful.spawn.with_shell('rofi -show drun -show-icons -font "hack 9"') end,
-              {description = "show rofi drun", group = "launcher"}),
+    awful.key({ modkey }, "d", function() awful.util.spawn("rofi -show drun -show-icons") end,
+              {description = "rofi drun", group = "launcher"}),
 
-    awful.key({ modkey }, "a", function() awful.spawn.with_shell('rofi -show window -show-icons -font "hack 9"') end,
-              {description = "show rofi window", group = "launcher"})
+    awful.key({ modkey }, "r", function() awful.util.spawn("rofi -show run") end,
+              {description = "rofi run", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -347,9 +347,9 @@ clientkeys = gears.table.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Shift" }, "f",  awful.client.floating.toggle                     ,
+    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey, "Shift" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
@@ -455,15 +455,15 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = true,
+      properties = { focus = awful.client.focus.filter,
+                     -- border_width = beautiful.border_width,
+                     -- border_color = beautiful.border_normal,
+										 raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-									   size_hints_honor = false
+										 -- size_hints_honor = true,
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
      }
     },
 
@@ -502,10 +502,6 @@ awful.rules.rules = {
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = false }
     },
-		{ rule = { class = "firefox" },
-			properties = { opacity = 1, maximized = false, floating = false }
-		},
-
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
@@ -518,7 +514,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    -- if not awesome.startup then awful.client.setslave(c) end
+    if not awesome.startup then awful.client.setslave(c) end
 
     if awesome.startup
       and not c.size_hints.user_position
@@ -578,8 +574,11 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Autostart
-awful.spawn.with_shell("picom")
-awful.spawn.with_shell("numlockx")
-awful.spawn.with_shell("volumeicon")
-awful.spawn.with_shell("nm-applet")
-awful.spawn.with_shell('setxkbmap -model pc105 -layout us,ru -variant qwerty -option "grp:caps_toggle, grp_led:scroll, compose:ralt"')
+awful.spawn.single_instance("picom", awful.rules.rules)
+awful.spawn.single_instance("numlockx", awful.rules.rules)
+-- awful.spawn.single_instance("volumeicon", awful.rules.rules)
+awful.spawn.single_instance("nitrogen --restore", awful.rules.rules)
+awful.spawn.single_instance('setxkbmap -layout "us, ru" -option "grp:caps_toggle,grp_led:scroll,compose:ralt"'
+, awful.rules.rules)
+
+beautiful.useless_gap = 5
