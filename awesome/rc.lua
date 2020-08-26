@@ -196,7 +196,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", height = 20, screen = s })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -229,6 +229,16 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+	  -- Media Keys
+	  awful.key({}, "XF86AudioPlay", function()
+	  	 awful.util.spawn("playerctl play-pause", false)
+	  end),
+	  awful.key({}, "XF86AudioNext", function()
+	  	 awful.util.spawn("playerctl next", false)
+	  end),
+	  awful.key({}, "XF86AudioPrev", function()
+		  awful.util.spawn("playerctl previous", false)
+	  end),
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -335,7 +345,9 @@ globalkeys = gears.table.join(
               {description = "rofi drun", group = "launcher"}),
 
     awful.key({ modkey }, "r", function() awful.util.spawn("rofi -show run") end,
-              {description = "rofi run", group = "launcher"})
+              {description = "rofi run", group = "launcher"}),
+    awful.key({ modkey }, "n", function() awful.util.spawn("alacritty -e nnn") end,
+              {description = "nnn", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -354,6 +366,7 @@ clientkeys = gears.table.join(
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
+		awful.key({ modkey, "Shift"   }, "t",      function (c) c.sticky = not c.sticky  end),
               {description = "toggle keep on top", group = "client"}),
     awful.key({ modkey,           }, "n",
         function (c)
@@ -582,3 +595,5 @@ awful.spawn.single_instance('setxkbmap -layout "us, ru" -option "grp:caps_toggle
 , awful.rules.rules)
 
 beautiful.useless_gap = 5
+beautiful.notification_icon_size = 64
+beautiful.notification_border_width = 0

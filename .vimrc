@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/emmet-vim'
 Plug 'jiangmiao/auto-pairs'
@@ -16,14 +16,14 @@ Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'pangloss/vim-javascript'
 Plug 'flazz/vim-colorschemes'
-Plug 'pangloss/vim-javascript'
 Plug 'dense-analysis/ale'
 Plug 'ngmy/vim-rubocop'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 " Plug 'garbas/vim-snipmate'
 Plug 'mileszs/ack.vim'
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Optional:
 " Plug 'honza/vim-snippets'
@@ -121,3 +121,17 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 set grepprg=ack
 
 set iskeyword-=_
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_global_extensions = ['coc-solargraph']
