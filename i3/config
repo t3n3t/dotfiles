@@ -165,38 +165,39 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3status
-  status_command i3blocks
-  position bottom
-  colors {
-    background #000000
-    statusline #05E8D9
-    separator  #000000
+# bar {
+# 	# status_command i3status
+#   # status_command i3blocks
+  # position bottom
+  # colors {
+  #   background #000000
+  #   statusline #05E8D9
+  #   separator  #000000
 
-    focused_workspace  #000000 #000000 #05E8D9
-    active_workspace   #000000 #000000 #FFFFFF
-    inactive_workspace #000000 #000000 #888888
-    urgent_workspace   #000000 #02504B #FFFFFF
-    binding_mode       #000000 #000000 #05E8D9
-  }
-}
+  #   focused_workspace  #000000 #000000 #05E8D9
+  #   active_workspace   #000000 #000000 #FFFFFF
+  #   inactive_workspace #000000 #000000 #888888
+  #   urgent_workspace   #000000 #02504B #FFFFFF
+  #   binding_mode       #000000 #000000 #05E8D9
+  # }
+# }
 
 #Autostart
 
 #exec --no-startup-id xfce4-panel --disable-wm-check
 exec nitrogen --restore
 #exec compton --respect-prop-shadow --no-fading-openclose
-exec picom
+# exec picom
 exec nm-applet
 exec numlockx
-#exec redshift-gtk
+exec redshift-gtk
 #exec blueman-applet
 exec volumeicon
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 #Customization
 
-default_border pixel 1 
+default_border none
 default_floating_border none
 hide_edge_borders both
 focus_follows_mouse yes
@@ -212,8 +213,8 @@ workspace_auto_back_and_forth yes
 
 #i3-gaps
 
-for_window [class="^.*"] border pixel 1
-gaps inner  5
+for_window [class="^.*"] border none
+gaps inner  10
 gaps outer  0
 smart_gaps on
 
@@ -225,7 +226,7 @@ bindsym $mod+a exec rofi -show window -show-icons
 
 #Terminal
 
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec alacritty
 
 #i3lock
 
@@ -241,8 +242,8 @@ exec setxkbmap -layout "us, ru" -option "grp:caps_toggle,grp_led:scroll,compose:
 for_window [class="Gnome-calculator"] floating enable
 for_window [class="File-roller"] floating enable
 
-#exec_always 'export XDG_CURRENT_SESSION=kde'
-exec_always xinput disable 'Atmel Atmel maXTouch Digitizer'
+# exec_always 'export XDG_CURRENT_SESSION=kde'
+# exec_always xinput disable 'Atmel Atmel maXTouch Digitizer'
 
 # class                 border  bground text    indicator child_border
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #05E8D9

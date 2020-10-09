@@ -23,6 +23,7 @@ alias tdglobus='ssh admin@tdglobus.ru'
 alias cpu_performance='sudo cpupower frequency-set -g performance'
 alias cpu_powersave='sudo cpupower frequency-set -g powersave'
 alias glog='git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
+# alias logout='i3-msg exit'
 
 set bell-style none
 
@@ -41,4 +42,6 @@ fo() (
 
 stty -ixon
 
-export RUBYOPT='-W:no-deprecated'
+# export RUBYOPT='-W:no-deprecated'
+export EDITOR=vim
+
