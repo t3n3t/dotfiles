@@ -188,7 +188,7 @@ bindsym $mod+r mode "resize"
 exec nitrogen --restore
 #exec compton --respect-prop-shadow --no-fading-openclose
 # exec picom
-exec nm-applet
+# exec nm-applet
 exec numlockx
 exec redshift-gtk
 #exec blueman-applet
@@ -230,8 +230,7 @@ bindsym $mod+Return exec alacritty
 
 #i3lock
 
-bindsym $mod+Control+l exec i3lock
-# -i ~/Pictures/wp/cobalt.png
+bindsym $mod+Control+l exec i3lock -i ~/Pictures/wp/abstractgrey.png
 
 #Keyboard
 

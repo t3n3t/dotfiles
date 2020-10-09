@@ -1,6 +1,6 @@
 [bar/mybar]
 wm-restack = i3
-bottom = true
+/* bottom = true */
 fixed-center = true
 height = 24
 /* offsext-y = 5 */
