@@ -1,4 +1,8 @@
 [bar/mybar]
+
+background = ${xrdb:color0:#000000}
+foreground = ${xrdb:color15:#fff}
+
 wm-restack = i3
 /* bottom = true */
 fixed-center = true
@@ -8,7 +12,8 @@ line-size = 0
 border-size = 0
 module-margin = 2
 
-font-0 = Hack-Regular:size=9;3
+/* font-1 = Fira Sans:size=9;3 */
+font-0 = Hack-Regular:size=9;2
 
 modules-left = i3
 modules-center = date
