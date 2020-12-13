@@ -2,23 +2,24 @@
 
 background = ${xrdb:color0:#000000}
 foreground = ${xrdb:color15:#fff}
+dpi = ${xrdb:Xft.dpi}
 
 wm-restack = i3
 fixed-center = true
-height = 20
+height = 24
 line-size = 0
 border-size = 0
 module-margin = 2
 
-font-0 = "Fira Sans:size=9;3"
-font-1 = "Hack:size=9;2"
+font-0 = "Fira Sans:size=10;3"
+font-1 = "Hack:size=11;2"
 
 modules-left = i3
 modules-center = date
-modules-right = xkeyboard
+modules-right = title xkeyboard
 
 tray-position = right
-tray-maxsize = 16
+tray-maxsize = 18
 
 [module/date]
 type = internal/date
@@ -29,7 +30,7 @@ label = %date% %time%
 [module/i3]
 type = internal/i3
 label-separator = |
-label-separator-padding = 1
+label-separator-padding = 0
 label-separator-foreground = ${xrdb:color0:#000000}
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -47,3 +48,10 @@ label-layout = %layout%
 [module/title]
 type = internal/xwindow
 label-maxlen = 100
+
+[module/network]
+type = internal/network
+interface = wlp2s0
+interval = 1.0
+label-connected = "  %downspeed%   %upspeed%  "
+label-disconnected = disconnected
